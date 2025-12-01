@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サブスク登録 - サブスク管理アプリ</title>
+    <link rel="stylesheet" href="/src/css/subscription-register.css">
+    <script type="module" src="/src/ts/subscription-register.ts"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💳 サブスク登録</h1>
+        </header>
+        <main>
+            <form id="subscriptionForm" class="subscription-form">
+                <!-- サービス名 -->
+                <div class="form-group">
+                    <label for="serviceName">サービス名 <span class="required">*</span></label>
+                    <input
+                        type="text" 
+                        id="serviceName" 
+                        name="serviceName" 
+                        placeholder="例: Netflix, Spotify" 
+                        required
+                    >
+                </div>
+
+                <!-- 料金 -->
+                <div class="form-group">
+                    <label for="amount">料金 <span class="required">*</span></label>
+                    <div class="input-with-unit">
+                        <input 
+                            type="number" id="amount" 
+                            placeholder="1000" 
+                            name="amount" 
+                            min="0"
+                            step="1"
+                            required
+                        >
+                        <span class="unit">円</span>
+                    </div>
+                </div>
+
+                <!-- 支払いサイクル -->
+                <div class="form-group">
+                    <label for="cycle">支払いサイクル <span class="required">*</span></label>
+                    <select id="cycle" name="cycle" required>
+                        <option value="">選択してください</option>
+                        <option value="weekly">週次</option>
+                        <option value="monthly" selected>月次</option>
+                        <option value="yearly">年次</option>
+                    </select>
+                </div>
+
+                <!-- カテゴリ -->
+                <div class="form-group">
+                    <label for="category">カテゴリ <span class="required">*</span></label>
+                    <select id="category" name="category" required>
+                        <option value="">選択してください</option>
+                        <option value="video">📺 動画配信</option>
+                        <option value="music">🎵 音楽</option>
+                        <option value="cloud">☁️ クラウドストレージ</option>
+                        <option value="software">💻 ソフトウェア</option>
+                        <option value="news">📰 ニュース・雑誌</option>
+                        <option value="fitness">💪 フィットネス</option>
+                        <option value="education">📚 教育</option>
+                        <option value="other">📦 その他</option>
+                    </select>
+                </div>
+
+                <!-- 契約開始日 -->
+                <div class="form-group">
+                    <label for="startDate">契約開始日 <span class="required">*</span></label>
+                    <input 
+                        type="date" 
+                        id="startDate" 
+                        name="startDate" 
+                        required
+                    >
+                </div>
+
+                <!-- 次回更新日 -->
+                <div class="form-group">
+                    <label for="nextBillingDate">次回更新日 <span class="required">*</span></label>
+                    <input 
+                        type="date" 
+                        id="nextBillingDate" 
+                        name="nextBillingDate" 
+                        required
+                    >
+                    <small class="helper-text">支払いサイクルから自動計算されます</small>
+                </div>
+
+                <!-- 無料トライアル -->
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input 
+                            type="checkbox" 
+                            id="hasTrial" 
+                            name="hasTrial"
+                        >
+                        無料トライアル期間あり
+                    </label>
+                </div>
+
+                <!-- トライアル終了日（条件付き表示） -->
+                <div class="form-group hidden" id="trialDateGroup">
+                    <label for="trialEndDate">トライアル終了日</label>
+                    <input 
+                        type="date" 
+                        id="trialEndDate" 
+                        name="trialEndDate"
+                    >
+                    <small class="helper-text">この日から課金が開始されます</small>
+                </div>
+
+                <!-- 通知設定 -->
+                <div class="form-group">
+                    <label for="notifyDays">更新日の何日前に通知</label>
+                    <select id="notifyDays" name="notifyDays">
+                        <option value="0">通知しない</option>
+                        <option value="1">1日前</option>
+                        <option value="3" selected>3日前</option>
+                        <option value="7">7日前</option>
+                        <option value="14">14日前</option>
+                    </select>
+                </div>
+
+                <!-- メモ -->
+                <div class="form-group">
+                    <label for="memo">メモ（任意）</label>
+                    <textarea 
+                        id="memo" 
+                        name="memo" 
+                        rows="3" 
+                        placeholder="プラン名、アカウント情報など"
+                    ></textarea>
+                </div>
+
+                <!-- ボタン -->
+                <div class="form-actions">
+                    <button type="button" id="cancelButton" class="btn-secondary">
+                        キャンセル
+                    </button>
+                    <button type="submit" id="submitButton" class="btn-primary">
+                        登録する
+                    </button>
+                </div>
+            </form>
+
+            <!-- エラーメッセージ表示エリア -->
+            <div id="errorMessage" class="error-message hidden"></div>
+            
+            <!-- 成功メッセージ表示エリア -->
+            <div id="successMessage" class="success-message hidden"></div>
+        </main>
+    </div>
+</body>
+</html>
