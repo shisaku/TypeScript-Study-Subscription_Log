@@ -1,5 +1,5 @@
 import { checkDomElement } from "./module/dom";
-import type { ValidationError } from "./types/subscription";
+import type { BillingCycle, ValidationError } from "./types/subscription";
 //####################################################
 // DOM読み込み処理
 //####################################################
@@ -51,4 +51,22 @@ function validateAmount(amount: number): ValidationError | null {
         return { field: "amount", message: "料金は整数で入力してください" };
     }
     return null;
+}
+//####################################################
+// 支払いサイクルのバリデーション
+//####################################################
+function validateBillingCycle(billingCycle: string): ValidationError | null {
+    if (!billingCycle) {
+        return { field: "billingCycle", message: "支払いサイクルを選択してください" };
+    }
+    if (!isBillingCycle(billingCycle)) {
+        return { field: "billingCycle", message: "不正な支払いサイクルです" };
+    }
+    return null;
+}
+//####################################################
+// 支払いサイクル型チェック
+//####################################################
+function isBillingCycle(args: string): args is BillingCycle {
+    return args === "weekly" || args === "monthly" || args === "annual";
 }
