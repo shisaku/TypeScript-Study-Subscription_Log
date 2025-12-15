@@ -1,6 +1,6 @@
 import { getDomElement } from "./module/dom";
 import { validateSubscriptionInput } from "./module/validation";
-import type { SubscriptionInput } from "./types/subscription";
+import type { SubscriptionInput, BillingCycle } from "./types/subscription";
 //####################################################
 // DOM読み込み処理
 //####################################################
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // TODO:
         const formData = getFormData();
         //バリデーション
-        validateSubscriptionInput;
+        const errors = validateSubscriptionInput(formData);
         //登録
         //遷移
     });
@@ -42,3 +42,11 @@ function getFormData(): Partial<SubscriptionInput> {
     };
     return formData;
 }
+//####################################################
+// 次回更新日算出処理
+//####################################################
+// function calcrateNextBillingDate() {
+//     const cycle = getDomElement<HTMLSelectElement>("cycle").value;
+//     const nextBillingDate = new Date(getDomElement<HTMLInputElement>("nextBillingDate").value);
+//     const billn
+// }

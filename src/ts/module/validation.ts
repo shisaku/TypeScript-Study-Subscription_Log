@@ -13,16 +13,19 @@ export function validateSubscriptionInput(input: Partial<SubscriptionInput>) {
     if (!input.serviceName) {
         errors.push({ field: "serviceName", message: "サービス名を入力してください" });
     }
+    if (!input.amount) {
+        errors.push({ field: "amount", message: "料金を入力してください" });
+    }
     if (input.cycle === undefined) {
         errors.push({ field: "amount", message: "支払いサイクルを入力してください" });
     }
     if (!input.category) {
         errors.push({ field: "category", message: "カテゴリを選択してください" });
     }
-    if (!input.startDate) {
+    if (!input.startDate || isNaN(input.startDate.getTime())) {
         errors.push({ field: "startDate", message: "契約開始日を入力してください" });
     }
-    if (!input.nextBillingDate) {
+    if (!input.nextBillingDate || isNaN(input.nextBillingDate.getTime())) {
         errors.push({ field: "nextBillingDate", message: "次回更新日を入力してください" });
     }
     // 存在チェックに引っかかったとき、早期リターン
@@ -94,7 +97,7 @@ function validateAmount(amount: number | undefined): ValidationError | null {
     if (amount < 0) {
         return { field: "amount", message: "料金は０以上入力してください" };
     }
-    if (amount < 100000) {
+    if (amount > 100000) {
         return { field: "amount", message: "料金は１０００００以下入力してください" };
     }
     // 小数点チェック
