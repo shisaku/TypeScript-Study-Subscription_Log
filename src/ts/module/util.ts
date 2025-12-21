@@ -18,14 +18,15 @@ export function compareDate(earlier: Date, later: Date) {
 // @param later - 遅い方の日付
 // @returns 早い方が先なら true、そうでなければ false
 //==========================================
-export function calcrateBillingCycle(billingCycle: BillingCycle, startDate: Date) {
-    let nextBillingDate = new Date();
+export function calculateBillingCycle(billingCycle: BillingCycle, startDate: Date) {
+    const nextBillingDate = new Date(startDate);
     if (billingCycle == "weekly") {
-        nextBillingDate.setDate(startDate.getDate() + 7);
+        nextBillingDate.setDate(nextBillingDate.getDate() + 7);
     } else if (billingCycle == "monthly") {
-        nextBillingDate.setMonth(startDate.getMonth() + 1);
+        nextBillingDate.setMonth(nextBillingDate.getMonth() + 1);
     } else if (billingCycle == "annual") {
-        nextBillingDate.setFullYear(startDate.getFullYear() + 1);
+        nextBillingDate.setFullYear(nextBillingDate.getFullYear() + 1);
     }
+
     return nextBillingDate.toISOString().split("T")[0];
 }

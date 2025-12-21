@@ -113,7 +113,7 @@ function validateCycle(cycle: string | undefined): ValidationError | null {
     if (!cycle) {
         return { field: "cycle", message: "支払いサイクルを選択してください" };
     }
-    if (!isCycle(cycle)) {
+    if (!isBillingCycle(cycle)) {
         return { field: "cycle", message: "不正な支払いサイクルです" };
     }
     return null;
@@ -135,7 +135,7 @@ function validateCategory(category: string | undefined): ValidationError | null 
 //####################################################
 // 支払いサイクル型チェック
 //####################################################
-function isCycle(args: string): args is BillingCycle {
+function isBillingCycle(args: string): args is BillingCycle {
     return args === "weekly" || args === "monthly" || args === "annual";
 }
 //####################################################

@@ -1,10 +1,25 @@
-import { getDomElement } from "./module/dom";
+import { getDomElement, isBillingCycle } from "./module/dom";
 import { validateSubscriptionInput } from "./module/validation";
 import type { SubscriptionInput, BillingCycle } from "./types/subscription";
+import { calculateBillingCycle } from "./module/util";
 //####################################################
 // DOM読み込み処理
 //####################################################
 document.addEventListener("DOMContentLoaded", () => {
+    //==========================================
+    // 契約開始日クリック処理
+    //==========================================
+    const startDateElement = getDomElement<HTMLInputElement>("startDate");
+    startDateElement.addEventListener("change", () => {
+        // TODO:
+        const startDate = new Date(startDateElement.value);
+        const cycle = getDomElement<HTMLSelectElement>("cycle").value;
+        if (!isBillingCycle(cycle)) {
+            return false;
+        }
+        const nextBillingDate = calculateBillingCycle(cycle, startDate);
+        getDomElement<HTMLInputElement>("nextBillingDate").value = nextBillingDate;
+    });
     //==========================================
     // 登録ボタンクリック処理
     //==========================================
@@ -42,11 +57,3 @@ function getFormData(): Partial<SubscriptionInput> {
     };
     return formData;
 }
-//####################################################
-// 次回更新日算出処理
-//####################################################
-// function calcrateNextBillingDate() {
-//     const cycle = getDomElement<HTMLSelectElement>("cycle").value;
-//     const nextBillingDate = new Date(getDomElement<HTMLInputElement>("nextBillingDate").value);
-//     const billn
-// }
