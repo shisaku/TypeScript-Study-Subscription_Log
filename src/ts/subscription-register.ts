@@ -29,6 +29,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const formData = getFormData();
         //バリデーション
         const errors = validateSubscriptionInput(formData);
+        // 存在チェックに引っかかったとき、早期リターン
+        if (!errors.success) {
+            const errorMessages = errors.errors?.map(error => error.message);
+            const messageText = errorMessages?.join("<br>");
+            const errorMessageElement = getDomElement<HTMLInputElement>("errorMessage");
+            if (messageText) {
+                errorMessageElement.innerHTML = messageText;
+                errorMessageElement.classList.remove("hidden");
+            }
+        }
         //登録
         //遷移
     });
@@ -57,3 +67,7 @@ function getFormData(): Partial<SubscriptionInput> {
     };
     return formData;
 }
+//####################################################
+// エラーメッセージの表示
+//####################################################
+function showErrorMessage(errorMessage: string[]) {}

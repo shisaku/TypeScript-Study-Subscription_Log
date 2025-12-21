@@ -13,6 +13,10 @@
             <h1>💳 サブスク登録</h1>
         </header>
         <main>
+            <!-- エラーメッセージ表示エリア -->
+            <div id="errorMessage" class="error-message hidden"></div>
+            <!-- 成功メッセージ表示エリア -->
+            <div id="successMessage" class="success-message hidden"></div>
             <form id="subscriptionForm" class="subscription-form">
                 <!-- サービス名 -->
                 <div class="form-group">
@@ -22,7 +26,6 @@
                         id="serviceName" 
                         name="serviceName" 
                         placeholder="例: Netflix, Spotify" 
-                        required
                     >
                 </div>
 
@@ -36,7 +39,6 @@
                             name="amount" 
                             min="0"
                             step="1"
-                            required
                         >
                         <span class="unit">円</span>
                     </div>
@@ -45,7 +47,7 @@
                 <!-- 支払いサイクル -->
                 <div class="form-group">
                     <label for="cycle">支払いサイクル <span class="required">*</span></label>
-                    <select id="cycle" name="cycle" required>
+                    <select id="cycle" name="cycle">
                         <option value="">選択してください</option>
                         <option value="weekly">週次</option>
                         <option value="monthly" selected>月次</option>
@@ -56,7 +58,7 @@
                 <!-- カテゴリ -->
                 <div class="form-group">
                     <label for="category">カテゴリ <span class="required">*</span></label>
-                    <select id="category" name="category" required>
+                    <select id="category" name="category">
                         <option value="">選択してください</option>
                         <option value="video">📺 動画配信</option>
                         <option value="music">🎵 音楽</option>
@@ -76,7 +78,6 @@
                         type="date" 
                         id="startDate" 
                         name="startDate" 
-                        required
                     >
                 </div>
 
@@ -87,7 +88,6 @@
                         type="date" 
                         id="nextBillingDate" 
                         name="nextBillingDate" 
-                        required
                     >
                     <small class="helper-text">支払いサイクルから自動計算されます</small>
                 </div>
@@ -132,17 +132,13 @@
                     <button type="button" id="cancelButton" class="btn-secondary">
                         キャンセル
                     </button>
-                    <button type="submit" id="submitButton" class="btn-primary">
+                    <button type="button" id="submitButton" class="btn-primary">
                         登録する
                     </button>
                 </div>
             </form>
 
-            <!-- エラーメッセージ表示エリア -->
-            <div id="errorMessage" class="error-message hidden"></div>
-            
-            <!-- 成功メッセージ表示エリア -->
-            <div id="successMessage" class="success-message hidden"></div>
+       
         </main>
     </div>
 </body>
