@@ -1,0 +1,291 @@
+/* list.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ヘッダー */
+.header {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    color: #333;
+    font-size: 28px;
+}
+
+.add-button {
+    background: #667eea;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.add-button:hover {
+    background: #5568d3;
+}
+
+/* メインコンテンツ */
+.main-content {
+    display: grid;
+    gap: 30px;
+}
+
+/* 合計金額セクション */
+.summary-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.total-amount-card {
+    text-align: center;
+}
+
+.total-amount-card h2 {
+    color: #666;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.total-amount {
+    font-size: 48px;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.subscription-count {
+    color: #999;
+    font-size: 14px;
+}
+
+/* 円グラフセクション */
+.chart-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chart-section h2 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.chart-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#pieChart {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.legend-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.legend-amount {
+    font-weight: 600;
+    color: #333;
+    margin-left: auto;
+}
+
+/* サブスク一覧セクション */
+.list-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.list-section h2 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.subscription-list {
+    display: grid;
+    gap: 15px;
+}
+
+/* サブスクアイテム */
+.subscription-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.3s;
+}
+
+.subscription-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.service-name {
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.category-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.category-entertainment {
+    background: #ffe0e0;
+    color: #d32f2f;
+}
+
+.category-productivity {
+    background: #e0f2ff;
+    color: #1976d2;
+}
+
+.category-health {
+    background: #e0ffe0;
+    color: #388e3c;
+}
+
+.category-education {
+    background: #fff3e0;
+    color: #f57c00;
+}
+
+.category-other {
+    background: #f0f0f0;
+    color: #666;
+}
+
+.item-body {
+    margin-bottom: 15px;
+}
+
+.amount {
+    font-size: 24px;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 5px;
+}
+
+.cycle {
+    font-size: 14px;
+    font-weight: 400;
+    color: #999;
+}
+
+.next-billing {
+    font-size: 14px;
+    color: #666;
+}
+
+.item-footer {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-button,
+.delete-button {
+    flex: 1;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.edit-button {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.edit-button:hover {
+    background: #e0e0e0;
+}
+
+.delete-button {
+    background: #ffebee;
+    color: #d32f2f;
+}
+
+.delete-button:hover {
+    background: #ffcdd2;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .total-amount {
+        font-size: 36px;
+    }
+
+    .legend {
+        grid-template-columns: 1fr;
+    }
+}

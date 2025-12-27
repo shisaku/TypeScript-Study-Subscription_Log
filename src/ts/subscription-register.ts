@@ -1,7 +1,8 @@
 import { getDomElement, isBillingCycle } from "./module/dom";
 import { validateSubscriptionInput } from "./module/validation";
 import type { SubscriptionInput, BillingCycle } from "./types/subscription";
-import { calculateBillingCycle } from "./module/util";
+import { calculateBillingCycle, redirectTo } from "./module/util";
+const SUBSCRIPTION_KEY = "subscrition";
 //####################################################
 // DOM読み込み処理
 //####################################################
@@ -27,9 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
     searchButton.addEventListener("click", () => {
         // TODO:
         const formData = getFormData();
-        //バリデーション
+        //-------------------------------
+        // バリデーション
+        //-------------------------------
         const errors = validateSubscriptionInput(formData);
-        // 存在チェックに引っかかったとき、早期リターン
         if (!errors.success) {
             const errorMessages = errors.errors?.map(error => error.message);
             const messageText = errorMessages?.join("<br>");
@@ -40,7 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         //登録
+        saveSubscriptionData(formData as SubscriptionInput);
         //遷移
+        redirectTo("subscription-list.html");
     });
 });
 //####################################################
@@ -68,6 +72,9 @@ function getFormData(): Partial<SubscriptionInput> {
     return formData;
 }
 //####################################################
-// エラーメッセージの表示
+// 登録処理
 //####################################################
-function showErrorMessage(errorMessage: string[]) {}
+function saveSubscriptionData(formData: SubscriptionInput) {
+    const { serviceName, ...rest } = formData;
+    localStorage.setItem(serviceName, JSON.stringify(rest));
+}

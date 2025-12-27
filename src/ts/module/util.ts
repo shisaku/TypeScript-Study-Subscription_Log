@@ -30,3 +30,10 @@ export function calculateBillingCycle(billingCycle: BillingCycle, startDate: Dat
 
     return nextBillingDate.toISOString().split("T")[0];
 }
+//==========================================
+// 指定したhtmlへ遷移
+// @param htmlName - html名
+//==========================================
+export function redirectTo(htmlName: string) {
+    window.location.href = htmlName;
+}
