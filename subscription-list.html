@@ -3,90 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>サブスク一覧</title>
-    <link rel="stylesheet" href="./src/css/subscription-list.css">
+    <link rel="stylesheet" href="/src/css/subscription-list.css">
+    <script type="module" src="/src/ts/subscription-register.ts"></script>
+    <title>サブスクリプション管理</title>
 </head>
 <body>
     <div class="container">
-        <header class="header">
-            <h1>サブスク管理</h1>
-            <a href="index.html" class="add-button">新規登録</a>
+        <header>
+            <h1>📊 サブスクリプション管理</h1>
+            <div class="total-amount">
+                <div>
+                    <div style="font-size: 14px; color: #666; margin-bottom: 4px;">月額合計</div>
+                    <div class="amount">¥8,470</div>
+                </div>
+                <button class="add-button">+ 新規追加</button>
+            </div>
+            <div class="filters">
+                <select>
+                    <option>すべてのカテゴリ</option>
+                    <option>動画配信</option>
+                    <option>音楽配信</option>
+                    <option>クラウドストレージ</option>
+                    <option>デザインツール</option>
+                </select>
+                <select>
+                    <option>支払日が近い順</option>
+                    <option>料金が高い順</option>
+                    <option>料金が安い順</option>
+                    <option>登録日順</option>
+                </select>
+            </div>
         </header>
-
-        <main class="main-content">
-            <!-- 合計金額セクション -->
-            <section class="summary-section">
-                <div class="total-amount-card">
-                    <h2>月額合計</h2>
-                    <p class="total-amount" id="totalAmount">¥0</p>
-                    <p class="subscription-count" id="subscriptionCount">0件のサブスク</p>
+        <div class="subscription-list">
+            <div class="subscription-card">
+                <div class="icon netflix">N</div>
+                <div class="card-content">
+                    <div class="service-name">Netflix</div>
+                    <div class="category-badge">動画配信</div>
+                    <div class="next-payment">次回支払日: <span class="payment-date">あと3日 (1/3)</span></div>
                 </div>
-            </section>
-
-            <!-- 円グラフセクション -->
-            <section class="chart-section">
-                <h2>カテゴリー別内訳</h2>
-                <div class="chart-container">
-                    <canvas id="pieChart" width="300" height="300"></canvas>
+                <div class="price-section">
+                    <div class="price">¥1,490</div>
+                    <div class="billing-cycle">/月</div>
                 </div>
-                <div class="legend" id="chartLegend">
-                    <!-- 凡例は動的に生成 -->
+                <div class="actions">
+                    <button class="action-btn">✏️</button>
+                    <button class="action-btn">🗑️</button>
                 </div>
-            </section>
-
-            <!-- サブスク一覧セクション -->
-            <section class="list-section">
-                <h2>サブスク一覧</h2>
-                <div class="subscription-list" id="subscriptionList">
-                    <!-- サブスクアイテムは動的に生成 -->
-                    <!-- サンプル -->
-                    <div class="subscription-item">
-                        <div class="item-header">
-                            <h3 class="service-name">Netflix</h3>
-                            <span class="category-badge category-entertainment">エンタメ</span>
-                        </div>
-                        <div class="item-body">
-                            <p class="amount">¥1,980 <span class="cycle">/ 月</span></p>
-                            <p class="next-billing">次回請求日: 2024-01-15</p>
-                        </div>
-                        <div class="item-footer">
-                            <button class="edit-button">編集</button>
-                            <button class="delete-button">削除</button>
-                        </div>
-                    </div>
-
-                    <div class="subscription-item">
-                        <div class="item-header">
-                            <h3 class="service-name">Spotify</h3>
-                            <span class="category-badge category-entertainment">エンタメ</span>
-                        </div>
-                        <div class="item-body">
-                            <p class="amount">¥980 <span class="cycle">/ 月</span></p>
-                            <p class="next-billing">次回請求日: 2024-01-20</p>
-                        </div>
-                        <div class="item-footer">
-                            <button class="edit-button">編集</button>
-                            <button class="delete-button">削除</button>
-                        </div>
-                    </div>
-
-                    <div class="subscription-item">
-                        <div class="item-header">
-                            <h3 class="service-name">ChatGPT Plus</h3>
-                            <span class="category-badge category-productivity">仕事効率化</span>
-                        </div>
-                        <div class="item-body">
-                            <p class="amount">¥3,000 <span class="cycle">/ 月</span></p>
-                            <p class="next-billing">次回請求日: 2024-01-10</p>
-                        </div>
-                        <div class="item-footer">
-                            <button class="edit-button">編集</button>
-                            <button class="delete-button">削除</button>
-                        </div>
-                    </div>
+            </div>
+            
+            <div class="subscription-card">
+                <div class="icon spotify">♫</div>
+                <div class="card-content">
+                    <div class="service-name">Spotify Premium</div>
+                    <div class="category-badge">音楽配信</div>
+                    <div class="next-payment">次回支払日: <span class="payment-date">あと7日 (1/7)</span></div>
                 </div>
-            </section>
-        </main>
+                <div class="price-section">
+                    <div class="price">¥980</div>
+                    <div class="billing-cycle">/月</div>
+                </div>
+                <div class="actions">
+                    <button class="action-btn">✏️</button>
+                    <button class="action-btn">🗑️</button>
+                </div>
+            </div>
+            
+            <div class="subscription-card">
+                <div class="icon youtube">▶</div>
+                <div class="card-content">
+                    <div class="service-name">YouTube Premium</div>
+                    <div class="category-badge">動画配信</div>
+                    <div class="next-payment">次回支払日: <span class="payment-date">あと12日 (1/12)</span></div>
+                </div>
+                <div class="price-section">
+                    <div class="price">¥1,280</div>
+                    <div class="billing-cycle">/月</div>
+                </div>
+                <div class="actions">
+                    <button class="action-btn">✏️</button>
+                    <button class="action-btn">🗑️</button>
+                </div>
+            </div>
+            
+            <div class="subscription-card">
+                <div class="icon amazon">a</div>
+                <div class="card-content">
+                    <div class="service-name">Amazon Prime</div>
+                    <div class="category-badge">総合</div>
+                    <div class="next-payment">次回支払日: <span class="payment-date">あと18日 (1/18)</span></div>
+                </div>
+                <div class="price-section">
+                    <div class="price">¥600</div>
+                    <div class="billing-cycle">/月</div>
+                </div>
+                <div class="actions">
+                    <button class="action-btn">✏️</button>
+                    <button class="action-btn">🗑️</button>
+                </div>
+            </div>
+            
+            <div class="subscription-card">
+                <div class="icon adobe">Ps</div>
+                <div class="card-content">
+                    <div class="service-name">Adobe Creative Cloud</div>
+                    <div class="category-badge">デザインツール</div>
+                    <div class="next-payment">次回支払日: <span class="payment-date">あと25日 (1/25)</span></div>
+                </div>
+                <div class="price-section">
+                    <div class="price">¥4,120</div>
+                    <div class="billing-cycle">/月</div>
+                </div>
+                <div class="actions">
+                    <button class="action-btn">✏️</button>
+                    <button class="action-btn">🗑️</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="summary">
+            <div class="summary-text">年間合計支払額</div>
+            <div class="annual-total">¥101,640</div>
+        </div>
     </div>
 </body>
 </html>
