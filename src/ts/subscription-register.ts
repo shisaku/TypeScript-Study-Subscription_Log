@@ -75,22 +75,17 @@ function getFormData(): Partial<SubscriptionInput> {
 // 登録処理
 //####################################################
 function saveSubscriptionData(formData: SubscriptionInput) {
-    // 既存のデータを取得
     const subscriptionList = getSubscriptions();
-
-    // 新しいデータを追加
     subscriptionList.push(formData);
-
-    // 配列全体を保存
     localStorage.setItem(StorageKeys.SUBSCRIPTION, JSON.stringify(subscriptionList));
 }
 
-// データの取得
+//####################################################
+// 既に登録されているデータを取得
+//####################################################
 function getSubscriptions(): SubscriptionInput[] {
     const data = localStorage.getItem(StorageKeys.SUBSCRIPTION);
     if (!data) return [];
-
-    // JSON.parseの結果を明示的に型指定
     const parsed: SubscriptionInput[] = JSON.parse(data);
     return parsed;
 }
