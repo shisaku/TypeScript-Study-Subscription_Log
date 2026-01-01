@@ -8,11 +8,18 @@ import { StorageKeys } from "./module/Constants";
 //####################################################
 document.addEventListener("DOMContentLoaded", () => {
     //==========================================
-    // 契約開始日クリック処理
+    // 初期値設定処理
+    //==========================================
+    const urlParams = new URLSearchParams(window.location.search);
+    const serviceName = urlParams.get("servicename");
+    if (serviceName) {
+        setDefaultValues(serviceName);
+    }
+    //==========================================
+    // 契約開始日変更処理
     //==========================================
     const startDateElement = getDomElement<HTMLInputElement>("startDate");
     startDateElement.addEventListener("change", () => {
-        // TODO:
         const startDate = new Date(startDateElement.value);
         const cycle = getDomElement<HTMLSelectElement>("cycle").value;
         if (!isBillingCycle(cycle)) {
@@ -26,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
     //==========================================
     const searchButton = getDomElement<HTMLButtonElement>("submitButton");
     searchButton.addEventListener("click", () => {
-        // TODO:
         const formData = getFormData();
         //-------------------------------
         // バリデーション
@@ -85,7 +91,28 @@ function saveSubscriptionData(formData: SubscriptionInput) {
 //####################################################
 function getSubscriptions(): SubscriptionInput[] {
     const data = localStorage.getItem(StorageKeys.SUBSCRIPTION);
-    if (!data) return [];
+    if (!data) {
+        return [];
+    }
     const parsed: SubscriptionInput[] = JSON.parse(data);
     return parsed;
+}
+//####################################################
+// 初期値設定処理
+//####################################################
+function setDefaultValues(serviceName: string) {
+    const subscriptionList = getSubscriptions();
+    if (!subscriptionList) {
+        return;
+    }
+    const displaySubscriptions = subscriptionList.filter(subscription => {
+        return subscription.serviceName == serviceName;
+    });
+    getDomElement<HTMLInputElement>("serviceName").value = displaySubscriptions[0].serviceName;
+    getDomElement<HTMLInputElement>("amount").value = displaySubscriptions[0].amount.toString();
+    getDomElement<HTMLSelectElement>("cycle").value = displaySubscriptions[0].cycle;
+    getDomElement<HTMLSelectElement>("category").value = displaySubscriptions[0].category;
+    getDomElement<HTMLInputElement>("startDate").value = displaySubscriptions[0].startDate.toString().split("T")[0];
+    getDomElement<HTMLInputElement>("nextBillingDate").value = displaySubscriptions[0].nextBillingDate.toString().split("T")[0];
+    getDomElement<HTMLInputElement>("memo").value = displaySubscriptions[0].memo ?? "";
 }
