@@ -1,5 +1,5 @@
 import { StorageKeys } from "./module/Constants";
-import { redirectTo } from "./module/util";
+import { redirectTo, getSubscriptions } from "./module/util";
 import type { SubscriptionInput, BillingCycle } from "./types/subscription";
 import { getDomElement, isBillingCycle } from "./module/dom";
 //####################################################
@@ -21,12 +21,26 @@ document.addEventListener("DOMContentLoaded", () => {
             redirectTo("subscription-register.html");
         }
         // 編集ボタンクリック処理
-        if (eventTarget.classList.contains("edit-btn")) {
+        if (eventTarget.classList.contains("edit-button")) {
             const container = eventTarget.closest(".subscription-card");
-            if (container instanceof HTMLElement) {
-                const serviceName = container.dataset.serviceName;
-                redirectTo("subscription-register.html", `?servicename=${serviceName}`);
+            if (!(container instanceof HTMLElement)) {
+                return;
             }
+            const serviceName = container.dataset.serviceName;
+            redirectTo("subscription-register.html", `?servicename=${serviceName}`);
+        }
+        // 削除ボタンクリック処理
+        if (eventTarget.classList.contains("delete-button")) {
+            const container = eventTarget.closest(".subscription-card");
+            if (!(container instanceof HTMLElement)) {
+                return;
+            }
+            const serviceName = container.dataset.serviceName;
+            if (!serviceName) {
+                return;
+            }
+            deleteSubscription(serviceName);
+            redirectTo("subscription-list.html", `?servicename=${serviceName}`);
         }
     });
 });
@@ -64,10 +78,24 @@ function showSubscriptionList() {
             <div class="billing-cycle">${subscription.cycle === "monthly" ? "/月" : "/年"}</div>
         </div>
         <div class="actions">
-            <button class="edit-btn">✏️</button>
-            <button class="delete-btn">🗑️</button>
+            <button class="edit-button">✏️</button>
+            <button class="delete-button">🗑️</button>
         </div>
     `;
         container.appendChild(card);
     });
+}
+//####################################################
+// サブスクリプション削除処理
+//####################################################
+function deleteSubscription(serviceName: string) {
+    const subscriptionList = getSubscriptions();
+    if (!subscriptionList) {
+        return;
+    }
+    const deletedSubscriptions = subscriptionList.filter(subscription => {
+        return subscription.serviceName != serviceName;
+    });
+    localStorage.removeItem(StorageKeys.SUBSCRIPTION);
+    localStorage.setItem(StorageKeys.SUBSCRIPTION, JSON.stringify(deletedSubscriptions));
 }

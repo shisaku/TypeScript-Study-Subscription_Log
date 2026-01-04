@@ -1,7 +1,7 @@
 import { getDomElement, isBillingCycle } from "./module/dom";
 import { validateSubscriptionInput } from "./module/validation";
 import type { SubscriptionInput, BillingCycle } from "./types/subscription";
-import { calculateBillingCycle, redirectTo } from "./module/util";
+import { calculateBillingCycle, redirectTo, getSubscriptions } from "./module/util";
 import { StorageKeys } from "./module/Constants";
 //####################################################
 // DOM読み込み処理
@@ -90,20 +90,10 @@ function getFormData(): Partial<SubscriptionInput> {
 function saveSubscriptionData(formData: SubscriptionInput) {
     const subscriptionList = getSubscriptions();
     subscriptionList.push(formData);
+    localStorage.removeItem(StorageKeys.SUBSCRIPTION);
     localStorage.setItem(StorageKeys.SUBSCRIPTION, JSON.stringify(subscriptionList));
 }
 
-//####################################################
-// 既に登録されているデータを取得
-//####################################################
-function getSubscriptions(): SubscriptionInput[] {
-    const data = localStorage.getItem(StorageKeys.SUBSCRIPTION);
-    if (!data) {
-        return [];
-    }
-    const parsed: SubscriptionInput[] = JSON.parse(data);
-    return parsed;
-}
 //####################################################
 // 初期値設定処理
 //####################################################

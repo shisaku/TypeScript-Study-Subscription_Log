@@ -1,4 +1,5 @@
-import type { BillingCycle } from "../types/subscription";
+import type { SubscriptionInput, BillingCycle } from "../types/subscription";
+import { StorageKeys } from "../module/Constants";
 //==========================================
 // カテゴリの型定義
 // @param earlier - 早い方の日付
@@ -36,4 +37,16 @@ export function calculateBillingCycle(billingCycle: BillingCycle, startDate: Dat
 //==========================================
 export function redirectTo(htmlName: string, parameters: string = "") {
     window.location.href = `${htmlName}${parameters}`;
+}
+
+//####################################################
+// 既に登録されているデータを取得
+//####################################################
+export function getSubscriptions(): SubscriptionInput[] {
+    const data = localStorage.getItem(StorageKeys.SUBSCRIPTION);
+    if (!data) {
+        return [];
+    }
+    const parsed: SubscriptionInput[] = JSON.parse(data);
+    return parsed;
 }
