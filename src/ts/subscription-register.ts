@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //==========================================
     // 登録ボタンクリック処理
     //==========================================
-    const searchButton = getDomElement<HTMLButtonElement>("submitButton");
+    const searchButton = getDomElement<HTMLButtonElement>("submit-button");
     searchButton.addEventListener("click", () => {
         const formData = getFormData();
         //-------------------------------
@@ -50,6 +50,13 @@ document.addEventListener("DOMContentLoaded", () => {
         //登録
         saveSubscriptionData(formData as SubscriptionInput);
         //遷移
+        redirectTo("subscription-list.html");
+    });
+    //==========================================
+    // 戻るボタンクリック処理
+    //==========================================
+    const backButton = getDomElement<HTMLButtonElement>("back-button");
+    backButton.addEventListener("click", () => {
         redirectTo("subscription-list.html");
     });
 });
