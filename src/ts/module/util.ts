@@ -39,9 +39,9 @@ export function redirectTo(htmlName: string, parameters: string = "") {
     window.location.href = `${htmlName}${parameters}`;
 }
 
-//####################################################
+//==========================================
 // 既に登録されているデータを取得
-//####################################################
+//==========================================
 export function getSubscriptions(): SubscriptionInput[] {
     const data = localStorage.getItem(StorageKeys.SUBSCRIPTION);
     if (!data) {
@@ -49,4 +49,16 @@ export function getSubscriptions(): SubscriptionInput[] {
     }
     const parsed: SubscriptionInput[] = JSON.parse(data);
     return parsed;
+}
+//==========================================
+// サブスクリプションの月間支払金額を計算
+//==========================================
+export function getMonthlyAmount(subscription: SubscriptionInput): number {
+    return subscription.cycle === "monthly" ? subscription.amount : subscription.amount / 12;
+}
+//==========================================
+// サブスクリプションの年間支払金額を計算
+//==========================================
+export function getAnnualAmount(subscription: SubscriptionInput): number {
+    return subscription.cycle === "monthly" ? subscription.amount * 12 : subscription.amount;
 }

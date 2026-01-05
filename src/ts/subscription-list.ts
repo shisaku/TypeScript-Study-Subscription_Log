@@ -1,15 +1,25 @@
 import { StorageKeys } from "./module/Constants";
-import { redirectTo, getSubscriptions } from "./module/util";
+import { redirectTo, getSubscriptions, getAnnualAmount } from "./module/util";
 import type { SubscriptionInput, BillingCycle } from "./types/subscription";
 import { getDomElement, isBillingCycle } from "./module/dom";
 //####################################################
 // DOM読み込み処理
 //####################################################
 document.addEventListener("DOMContentLoaded", () => {
+    const subscription_l = localStorage.getItem(StorageKeys.SUBSCRIPTION);
+    if (!subscription_l) {
+        return;
+    }
+    const subscriptions: SubscriptionInput[] = JSON.parse(subscription_l);
     //==========================================
     // サブスクリプション一覧表示処理
     //==========================================
-    showSubscriptionList();
+    showSubscriptionList(subscriptions);
+    //==========================================
+    // 年間合計支払金額の表示
+    //==========================================
+    const annualTotal = calculateAnnualTotal(subscriptions);
+    getDomElement<HTMLElement>("annual-total").textContent = `${annualTotal.toString()}円`;
     //==========================================
     // クリックイベント付与
     //==========================================
@@ -47,15 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
 //####################################################
 // 一覧表示処理
 //####################################################
-function showSubscriptionList() {
-    //==========================================
-    // サブスクリプション登録データを取得
-    //==========================================
-    const subscription_l = localStorage.getItem(StorageKeys.SUBSCRIPTION);
-    if (!subscription_l) {
-        return;
-    }
-    const subscriptionList: SubscriptionInput[] = JSON.parse(subscription_l);
+function showSubscriptionList(subscriptions: SubscriptionInput[]) {
     //==========================================
     // サブスクリプションカードの描画
     //==========================================
@@ -63,7 +65,7 @@ function showSubscriptionList() {
     if (!container) return;
     container.innerHTML = "";
 
-    subscriptionList?.forEach(subscription => {
+    subscriptions?.forEach(subscription => {
         const card = document.createElement("div");
         card.className = "subscription-card";
         card.dataset.serviceName = subscription.serviceName;
@@ -98,4 +100,12 @@ function deleteSubscription(serviceName: string) {
     });
     localStorage.removeItem(StorageKeys.SUBSCRIPTION);
     localStorage.setItem(StorageKeys.SUBSCRIPTION, JSON.stringify(deletedSubscriptions));
+}
+//####################################################
+// 年間合計支払額計算処理
+//####################################################
+function calculateAnnualTotal(subscriptions: SubscriptionInput[]): number {
+    return subscriptions.reduce((total, sub) => {
+        return total + getAnnualAmount(sub);
+    }, 0);
 }
