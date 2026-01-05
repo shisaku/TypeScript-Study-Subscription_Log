@@ -11,13 +11,19 @@
     <div class="container" id="container">
         <header>
             <h1>📊 サブスクリプション管理</h1>
-            <div class="total-amount">
-                <div>
-                    <div style="font-size: 14px; color: #666; margin-bottom: 4px;">月額合計</div>
-                    <div class="amount">¥8,470</div>
+        <div class="total-amount">
+            <div>
+                <div class="total-item">
+                    <div class="summary-text">月額合計</div>
+                    <div class="monthly-total" id="monthly-total">¥0</div>
                 </div>
-                <button class="add-button" id="add-button">+ 新規追加</button>
+                <div class="total-item">
+                    <div class="summary-text">年間合計</div>
+                    <div class="annual-total" id="annual-total">¥0</div>
+                </div>
             </div>
+            <button class="add-button" id="add-button">+ 新規追加</button>
+        </div>
             <div class="filters">
                 <select>
                     <option>すべてのカテゴリ</option>
@@ -35,10 +41,6 @@
             </div>
         </header>
         <div id="subscription-list" class="subscription-list">
-        </div>
-        <div class="summary">
-            <div class="summary-text">年間合計支払額</div>
-            <div class="annual-total"id="annual-total"></div>
         </div>
     </div>
 </body>

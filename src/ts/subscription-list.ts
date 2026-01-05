@@ -1,5 +1,5 @@
 import { StorageKeys } from "./module/Constants";
-import { redirectTo, getSubscriptions, getAnnualAmount } from "./module/util";
+import { redirectTo, getSubscriptions, getAnnualAmount, getMonthlyAmount } from "./module/util";
 import type { SubscriptionInput, BillingCycle } from "./types/subscription";
 import { getDomElement, isBillingCycle } from "./module/dom";
 //####################################################
@@ -20,6 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
     //==========================================
     const annualTotal = calculateAnnualTotal(subscriptions);
     getDomElement<HTMLElement>("annual-total").textContent = `${annualTotal.toString()}円`;
+    //==========================================
+    // 月間合計支払金額の表示
+    //==========================================
+    const monthlyTotal = calculateMonthlyTotal(subscriptions);
+    getDomElement<HTMLElement>("monthly-total").textContent = `${monthlyTotal.toString()}円`;
     //==========================================
     // クリックイベント付与
     //==========================================
@@ -107,5 +112,13 @@ function deleteSubscription(serviceName: string) {
 function calculateAnnualTotal(subscriptions: SubscriptionInput[]): number {
     return subscriptions.reduce((total, sub) => {
         return total + getAnnualAmount(sub);
+    }, 0);
+}
+//####################################################
+// 月間合計支払額計算処理
+//####################################################
+function calculateMonthlyTotal(subscriptions: SubscriptionInput[]): number {
+    return subscriptions.reduce((total, sub) => {
+        return total + getMonthlyAmount(sub);
     }, 0);
 }

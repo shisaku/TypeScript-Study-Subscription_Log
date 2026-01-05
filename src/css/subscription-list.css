@@ -37,7 +37,12 @@ h1 {
     margin-bottom: 16px;
 }
 
-.amount {
+.total-amount > div {
+    display: flex;
+    gap: 24px;
+    align-items: flex-end;
+}
+.monthly-total {
     font-size: 32px;
     font-weight: bold;
     color: #667eea;
@@ -105,23 +110,6 @@ input {
     font-size: 28px;
     flex-shrink: 0;
 }
-
-.netflix {
-    background: #e50914;
-}
-.spotify {
-    background: #1db954;
-}
-.youtube {
-    background: #ff0000;
-}
-.amazon {
-    background: #ff9900;
-}
-.adobe {
-    background: #ff0000;
-}
-
 .card-content {
     flex: 1;
 }
@@ -199,11 +187,17 @@ input {
 .summary-text {
     color: #666;
     font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.monthly-total {
+    font-size: 32px;
+    font-weight: bold;
+    color: #667eea;
 }
 
 .annual-total {
-    font-size: 20px;
+    font-size: 28px; /* 月間より少し小さめ */
     font-weight: bold;
     color: #764ba2;
-    margin-top: 8px;
 }

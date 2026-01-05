@@ -51,10 +51,10 @@ export function getSubscriptions(): SubscriptionInput[] {
     return parsed;
 }
 //==========================================
-// サブスクリプションの月間支払金額を計算
+// サブスクリプションの月間支払金額を計算（少数部は切り捨て）
 //==========================================
 export function getMonthlyAmount(subscription: SubscriptionInput): number {
-    return subscription.cycle === "monthly" ? subscription.amount : subscription.amount / 12;
+    return subscription.cycle === "monthly" ? subscription.amount : Math.trunc(subscription.amount / 12);
 }
 //==========================================
 // サブスクリプションの年間支払金額を計算
