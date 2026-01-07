@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 errorMessageElement.innerHTML = messageText;
                 errorMessageElement.classList.remove("hidden");
             }
+            return;
         }
         //登録
         saveSubscriptionData(formData as SubscriptionInput);

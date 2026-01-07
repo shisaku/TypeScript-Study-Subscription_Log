@@ -1,5 +1,5 @@
 import type { SubscriptionInput, SubscriptionCategory, BillingCycle, ValidationError } from "../types/subscription";
-import { compareDate } from "./util";
+import { compareDate, getSubscriptions } from "./util";
 //####################################################
 // 入力値バリデーション
 // @param input 入力値
@@ -77,7 +77,13 @@ function validateServiceName(serviceName: string | undefined): ValidationError |
     if (!serviceName || serviceName.trim() === "") {
         return { field: "serviceName", message: "サービス名を入力してください" };
     }
-
+    const subscriptions = getSubscriptions();
+    const isExist = subscriptions.some(subscription => {
+        return subscription.serviceName === serviceName;
+    });
+    if (isExist) {
+        return { field: "serviceName", message: "既に登録されているサービスです" };
+    }
     if (serviceName.length > 50) {
         return { field: "serviceName", message: "サービス名は50文字以内で入力してください" };
     }
