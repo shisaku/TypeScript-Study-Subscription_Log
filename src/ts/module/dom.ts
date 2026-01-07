@@ -18,5 +18,5 @@ export function getDomElement<T extends HTMLElement>(elementId: string): T {
 // BillingCycle型かどうかを判定する関数
 //==========================================
 export function isBillingCycle(cycle: unknown): cycle is BillingCycle {
-    return cycle === "weekly" || cycle === "monthly" || cycle === "annual";
+    return cycle === "monthly" || cycle === "annual";
 }

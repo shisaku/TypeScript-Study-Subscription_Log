@@ -142,7 +142,7 @@ function validateCategory(category: string | undefined): ValidationError | null 
 // 支払いサイクル型チェック
 //####################################################
 function isBillingCycle(args: string): args is BillingCycle {
-    return args === "weekly" || args === "monthly" || args === "annual";
+    return args === "monthly" || args === "annual";
 }
 //####################################################
 // カテゴリー型チェック

@@ -21,9 +21,7 @@ export function compareDate(earlier: Date, later: Date) {
 //==========================================
 export function calculateBillingCycle(billingCycle: BillingCycle, startDate: Date) {
     const nextBillingDate = new Date(startDate);
-    if (billingCycle == "weekly") {
-        nextBillingDate.setDate(nextBillingDate.getDate() + 7);
-    } else if (billingCycle == "monthly") {
+    if (billingCycle == "monthly") {
         nextBillingDate.setMonth(nextBillingDate.getMonth() + 1);
     } else if (billingCycle == "annual") {
         nextBillingDate.setFullYear(nextBillingDate.getFullYear() + 1);

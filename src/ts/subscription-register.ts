@@ -48,9 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             return;
         }
-        //登録
         saveSubscriptionData(formData as SubscriptionInput);
-        //遷移
         redirectTo("subscription-list.html");
     });
     //==========================================

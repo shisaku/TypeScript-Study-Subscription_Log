@@ -25,7 +25,7 @@ export type SubscriptionInput = Omit<Subscription, "id" | "createdAt" | "updated
 //==========================================
 // 支払いサイクルの型
 //==========================================
-export type BillingCycle = "weekly" | "monthly" | "annual";
+export type BillingCycle = "monthly" | "annual";
 
 //==========================================
 // バリデーションエラー
