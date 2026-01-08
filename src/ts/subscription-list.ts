@@ -26,6 +26,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const monthlyTotal = calculateMonthlyTotal(subscriptions);
     getDomElement<HTMLElement>("monthly-total").textContent = `${monthlyTotal.toString()}円`;
     //==========================================
+    // フィルタ・ソート変更イベント
+    //==========================================
+    const categorySelect = getDomElement<HTMLSelectElement>("category-select");
+    const sortSelect = getDomElement<HTMLSelectElement>("sort-select");
+
+    categorySelect.addEventListener("change", () => {
+        updateDisplay(subscriptions, categorySelect.value, sortSelect.value);
+    });
+
+    sortSelect.addEventListener("change", () => {
+        updateDisplay(subscriptions, categorySelect.value, sortSelect.value);
+    });
+    //==========================================
     // クリックイベント付与
     //==========================================
     const container = getDomElement<HTMLElement>("container");
@@ -60,6 +73,29 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 //####################################################
+// 表示更新処理
+//####################################################
+function updateDisplay(subscriptions: SubscriptionInput[], category: string, sort: string) {
+    let filtered = [...subscriptions];
+    // カテゴリフィルタ
+    if (category !== "all") {
+        filtered = subscriptions.filter(sub => sub.category === category);
+    }
+
+    // ソート
+    if (sort === "payment-date") {
+        filtered.sort((a, b) => new Date(a.nextBillingDate).getTime() - new Date(b.nextBillingDate).getTime());
+    } else if (sort === "price-desc") {
+        filtered.sort((a, b) => getMonthlyAmount(b) - getMonthlyAmount(a));
+    } else if (sort === "price-asc") {
+        filtered.sort((a, b) => getMonthlyAmount(a) - getMonthlyAmount(b));
+    } else if (sort === "register-date") {
+        filtered.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+    }
+
+    showSubscriptionList(filtered);
+}
+//####################################################
 // 一覧表示処理
 //####################################################
 function showSubscriptionList(subscriptions: SubscriptionInput[]) {
@@ -75,20 +111,20 @@ function showSubscriptionList(subscriptions: SubscriptionInput[]) {
         card.className = "subscription-card";
         card.dataset.serviceName = subscription.serviceName;
         card.innerHTML = `
-        <div class="card-content" >
-            <div class="service-name">${subscription.serviceName}</div>
-            <div class="category-badge">${subscription.category}</div>
-            <div class="next-payment">次回支払日: <span class="payment-date">あと3日 (1/3)</span></div>
-        </div>
-        <div class="price-section">
-            <div class="price">¥${subscription.amount.toLocaleString()}</div>
-            <div class="billing-cycle">${subscription.cycle === "monthly" ? "/月" : "/年"}</div>
-        </div>
-        <div class="actions">
-            <button class="edit-button">✏️</button>
-            <button class="delete-button">🗑️</button>
-        </div>
-    `;
+            <div class="card-content" >
+                <div class="service-name">${subscription.serviceName}</div>
+                <div class="category-badge">${subscription.category}</div>
+                <div class="next-payment">次回支払日: <span class="payment-date">あと3日 (1/3)</span></div>
+            </div>
+            <div class="price-section">
+                <div class="price">¥${subscription.amount.toLocaleString()}</div>
+                <div class="billing-cycle">${subscription.cycle === "monthly" ? "/月" : "/年"}</div>
+            </div>
+            <div class="actions">
+                <button class="edit-button">✏️</button>
+                <button class="delete-button">🗑️</button>
+            </div>
+        `;
         container.appendChild(card);
     });
 }

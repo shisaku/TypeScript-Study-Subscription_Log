@@ -24,21 +24,25 @@
             </div>
             <button class="add-button" id="add-button">+ 新規追加</button>
         </div>
-            <div class="filters">
-                <select>
-                    <option>すべてのカテゴリ</option>
-                    <option>動画配信</option>
-                    <option>音楽配信</option>
-                    <option>クラウドストレージ</option>
-                    <option>デザインツール</option>
-                </select>
-                <select>
-                    <option>支払日が近い順</option>
-                    <option>料金が高い順</option>
-                    <option>料金が安い順</option>
-                    <option>登録日順</option>
-                </select>
-            </div>
+        <div class="filters">
+            <select id="category-select">
+                <option value="all">すべてのカテゴリ</option>
+                <option value="video">動画配信</option>
+                <option value="music">音楽配信</option>
+                <option value="cloud">クラウドストレージ</option>
+                <option value="software">ソフトウェア</option>
+                <option value="news">ニュース・雑誌</option>
+                <option value="fitness">フィットネス</option>
+                <option value="education">教育</option>
+                <option value="other">その他</option>
+            </select>
+            <select id="sort-select">
+                <option value="payment-date">支払日が近い順</option>
+                <option value="price-desc">料金が高い順</option>
+                <option value="price-asc">料金が安い順</option>
+                <option value="register-date">登録日順</option>
+            </select>
+        </div>
         </header>
         <div id="subscription-list" class="subscription-list">
         </div>
